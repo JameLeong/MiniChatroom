@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://java.sun.com/xml/ns/javaee"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+	id="WebApp_ID" version="2.5">
+	<!-- 主要控制器webTalk -->
+	<servlet>
+		<servlet-name>webTalk</servlet-name>
+		<servlet-class>com.james.service.TalkServlet</servlet-class>
+		<init-param>
+			<param-name>Bean_talkBean</param-name>
+			<param-value>com.james.service.TalkBean</param-value>
+		</init-param>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>webTalk</servlet-name>
+		<url-pattern>/talkService.srv</url-pattern>
+	</servlet-mapping>
+	<!-- pushlet -->
+	<servlet>
+		<servlet-name>pushlet</servlet-name>
+		<servlet-class>nl.justobjects.pushlet.servlet.Pushlet</servlet-class>
+		<load-on-startup>3</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>pushlet</servlet-name>
+		<url-pattern>/pushlet.srv</url-pattern>
+	</servlet-mapping>
+	<!-- session设置 -->
+	<session-config>
+		<session-timeout>30</session-timeout>
+	</session-config>
+	<!-- 监听器设置 -->
+	<listener>
+		<listener-class>com.james.listener.OnlineListener</listener-class>
+	</listener>
+	<!-- 过滤器设置 -->
+	<filter>
+		<filter-name>CharactorFilter</filter-name>
+		<filter-class>com.james.filter.CharactorFilter</filter-class>
+		<init-param>
+			<param-name>encoding</param-name>
+			<param-value>UTF-8</param-value>
+		</init-param>
+	</filter>
+	<filter-mapping>
+		<filter-name>CharactorFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+	<!-- 欢迎主页 -->
+	<welcome-file-list>
+		<welcome-file>talkService.srv</welcome-file>
+	</welcome-file-list>
+</web-app>
